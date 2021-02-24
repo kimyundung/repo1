@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射配置文件-->
+<mapper namespace="userMapper">
+    <!--
+        namespace : 命名空间: 与id属性共同构成唯一标识  namespace.id: user.findAll
+        resultType: 返回结果类型(自动映射封装): 要封装的实体的全路径
+    -->
+    <!--<select id="findAll" resultType="com.lagou.domain.User">-->
+    <!--起别名后可以-->
+    <select id="findAll" resultType="uSer">
+        select * from user
+    </select>
+
+    <!--新增用户-->
+    <!--
+        #{} : mybatis中的占位符, 等同于JDBC的 ?
+        parameterType : 指定接收到的参数类型
+    -->
+    <insert id="saveUser" parameterType="User">
+        insert into user(username,birthday,sex,address) values (#{username},#{birthday},#{sex},#{address})
+    </insert>
+
+    <!--更新用户-->
+    <update id="updateUser" parameterType="User">
+        update user set username=#{username}, birthday=#{birthday}, sex=#{sex}, address=#{address} where id=#{id}
+    </update>
+
+    <!--用户-->
+    <!--
+        int 是 java.lang.Integer 的别名
+        所以 parameterType 直接写 int 可以
+    -->
+    <!--<delete id="deleteUser" parameterType="java.lang.Integer">-->
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{abc}
+    </delete>
+
+</mapper>
